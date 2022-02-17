@@ -16,6 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * 文件描述
  * 线程池配置
+ * 这个线程池在并行时  偶尔会用到一次tomcat的一个线程  并不是很严密 但是不影响   因为tomcat里的线程也是可以复用的
  * @author hjj
  * @date 2020年07月22日 16:19
  */
