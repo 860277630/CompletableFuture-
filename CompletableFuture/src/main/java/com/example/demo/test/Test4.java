@@ -50,7 +50,7 @@ public class Test4 {
         //到了主线程后输出总数
         lists.forEach(x->{
             try {
-                System.out.println("每个节点的数据为："+x.get());
+                System.out.println("list中超过2000的数据节点为："+x.get());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -66,9 +66,8 @@ public class Test4 {
     private CompletableFuture<Integer> dealList(List<Integer> list,ExecutorService threadPool){
         CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
             Integer sum = list.stream().reduce(Integer::sum).orElse(0);
-            SmallTool.printTimeAndThread(list.toString());
-            SmallTool.printTimeAndThread("总和为："+sum);
-            if(sum >5000){
+            SmallTool.printTimeAndThread(list.toString()+"==总和为：=="+sum);
+            if(sum >2000){
                 return sum;
             }else {
                 return 0;

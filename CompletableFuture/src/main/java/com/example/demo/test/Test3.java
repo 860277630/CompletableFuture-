@@ -26,6 +26,7 @@ public class Test3 {
         int size = list.size();
         SmallTool.printTimeAndThread("列表长度为："+size);
 
+        //查询次数
         int spiltNum = (size/QUERY_NUM)+(size%QUERY_NUM==0?(size>QUERY_NUM?0:1):0)+((float)(size%QUERY_NUM)/(float)QUERY_NUM>Z_FACTOR?1:0);
 
         SmallTool.printTimeAndThread("查询次数为："+spiltNum);
@@ -34,6 +35,7 @@ public class Test3 {
 
         List<CompletableFuture> lists = new ArrayList<>();
 
+        //如果没到最后一段  就按照每段QUERY_NUM的个数进行截取  如果到了终点  就截止list.size
         for(int i = 0; i<spiltNum ; i++){
             if(i == spiltNum - 1){
                 lists.add(dealList(list.subList(i*QUERY_NUM,size),threadPool)) ;
@@ -42,6 +44,7 @@ public class Test3 {
             }
         }
 
+        //异步操作之后进行统计
         CompletableFuture.allOf(lists.toArray(new CompletableFuture[lists.size()])).join();
 
         threadPool.shutdown();
